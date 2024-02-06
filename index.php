@@ -4,171 +4,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Negozio Online Animali</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>AnimalCommerce</title>
+
+    <?php require_once(__DIR__ . "/db.php"); ?>
     <style>
-        body {
-            background-image: url('https://www.pixelstalk.net/wp-content/uploads/wallpapers/dog-and-cat-cocker-spaniel-puppy-small-ginger-kitten-kiss.jpg');
-            background-size: cover;
+        h1 {
+            padding: 10px;
         }
 
-        header {
-            height: 100px;
-
-        }
-
-        main {
-            height: calc(100vh - 100px);
-
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        .ms-container {
-            width: 100%;
-
+        .container {
             display: flex;
-            padding: 0;
-            flex-wrap: wrap;
-
         }
 
         .card {
-            /* border: 1px solid #ddd; */
-            background-color: #f1dad5;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             padding: 10px;
             margin: 10px;
-            text-align: center;
-            width: calc((100% * 1/6) - 20px);
-            height: 450px;
+            width: 300px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
 
+        .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
         img {
-            max-width: 100%;
-            height: auto;
+            width: 100%;
+            height: 300px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="container-fluid text-center p-4">
-            <h1>Pet Shop</h1>
-        </div>
+    <h1>Animal Commerce</h1>
 
-    </header>
+    <div class="container">
 
-
-
-    <main>
-        <div class="ms-container">
+        <?php foreach ($prods as $prod) { ?>
 
             <?php
+            try {
+                // PRODUCTS
+                $prod_croccantini = new Food(
+                    1,
+                    "Croccantini",
+                    "https://shop-cdn-m.mediazs.com/bilder/9/400/26635_pla_meradog_puppyknochen_10kg_9.jpg",
+                    35,
+                    $cat_cat,
+                    "10/05/2024"
+                );
 
+                $prod_cuccia = new AnimalHouse(
+                    2,
+                    "Cuccia per cani",
+                    "https://www.original-legno.com/wp-content/uploads/2022/02/Cucce_in_legno_italy_con_veranda_per_cani_Barboncino.webp",
+                    100,
+                    $cat_dog,
+                    "100x45x40"
+                );
 
-            $categoriaCani = new Categoria('Cani', '<i class="fa-solid fa-dog"></i>');
-            $categoriaGatti = new Categoria('Gatti', '<i class="fa-solid fa-cat"></i>');
+                $prod_cibo_umido = new Food(
+                    3,
+                    "Virtus Cat Natural Multipack",
+                    "https://arcaplanet.vtexassets.com/arquivos/ids/286498/VIRTUS-CAT_multipack_house_2--1-.jpg?v=638210293531670000",
+                    7.99,
+                    $cat_cat,
+                    "10/07/2024"
+                );
 
-            $Tipi = array(
-                new tipo("Cibo secco"),
-                new tipo("Cuccie"),
-                new tipo("Giochi"),
-                new tipo("Accessori"),
-                new tipo("Cibo umido")
-            );
+                $prod_cuccia_verde = new AnimalHouse(
+                    4,
+                    "Cuccia gatti verde",
+                    "https://arcaplanet.vtexassets.com/arquivos/ids/277238/luna-e-teo-cuccia-pelosa-color-menta-60-cm.jpg?v=638043762913300000",
+                    27.99,
+                    $cat_cat,
+                    "100x45x40"
+                );
 
+                $prod_cibo_umido_cane = new Food(
+                    5,
+                    "Virtus Protein Selection Dog",
+                    "https://arcaplanet.vtexassets.com/arquivos/ids/266207/virtus-dog-protein-selection-anatra-400g.jpg?v=637755900210570000",
+                    4.99,
+                    $cat_dog,
+                    "12/12/2024"
+                );
 
-            $products = array();
+                $prods = [$prod_croccantini, $prod_cuccia, $prod_cibo_umido, $prod_cuccia_verde, $prod_cibo_umido_cane];
+            } catch (Exception $e) {
 
-
-            $products[] = new Prodotto(1, 'Virtus Wild Taste Dog Lattina', $categoriaCani, 'Cibo umido', 1.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/266476/virtus-dog-adult-wild-taste-pollo-400g.jpg?v=637774240624270000');
-            $products[] = new Prodotto(2, 'Virtus Cat Natural Busta', $categoriaGatti, 'Cibo umido', 2.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/294090/Virtus-Cat_pouch-naturali-70g_-nature-freedom-formula-Vista-corrente--1-.jpg?v=638417092541870000');
-            $products[] = new Prodotto(3, 'Cuccia Pelosa Verde', $categoriaGatti, 'Cuccia', 27.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/277238/luna-e-teo-cuccia-pelosa-color-menta-60-cm.jpg?v=638043762913300000');
-            $products[] = new Prodotto(4, 'Virtus Dog Adult Rustic', $categoriaCani, 'Cibo secco', 27.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/224338/virtus-rustic-cane-adult.jpg?v=637454741671700000');
-            $products[] = new Prodotto(5, 'Bacchetta per Gatto con Uccellini', $categoriaGatti, 'Giochi', 2.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/273145/croci-gioco-gatto-uccellino.jpg?v=637921885766370000');
-            $products[] = new Prodotto(6, 'Maglione Passion San Valentino Panna', $categoriaCani, 'Accessori', 25.99, 'https://arcaplanet.vtexassets.com/arquivos/ids/266594/lovedi-maglione-passion-panna-indossato-cane-nero.jpg?v=637783510667530000');
-
-
-            foreach ($products as $product) {
-                $product->stampaProdotto();
+                echo 'Si è verificato un errore durante la creazione dei prodotti: ' . $e->getMessage();
             }
-
             ?>
 
-        </div>
-    </main>
 
 
+            <div class="card">
+                <img src="<?php echo $prod->getImage() ?>" alt="<?php echo $prod->getTitle() ?>">
+                <h3><strong>Type:</strong>
+                    <?php echo $prod->getTypology() ?>
+                </h3>
+                <p><strong>Title:</strong>
+                    <?php echo $prod->getTitle() ?>
+                </p>
+                <p><strong>Price:</strong>
+                    <?php echo $prod->getPrice() ?> Euro
+                </p>
+                <p><strong>Category:</strong> <img class="logo" src="<?php echo $prod->getCategory()->getIcon() ?>" alt="">
+                </p>
 
-
+            </div>
+        <?php } ?>
+    </div>
 </body>
 
 </html>
-
-
-<?php
-class Categoria
-{
-    public $nome;
-    public $logoAnimale;
-
-    public function __construct($nome, $logoAnimale)
-    {
-        $this->nome = $nome;
-        $this->logoAnimale = $logoAnimale;
-    }
-}
-
-class tipo
-{
-    public $nome;
-
-    public function __construct($nome)
-    {
-        $this->nome = $nome;
-    }
-
-}
-
-
-class Prodotto
-{
-    public $id;
-    public $titolo;
-    public $categoria;
-    public $tipo;
-    public $prezzo;
-    public $immagine;
-
-    public function __construct($id, $titolo, $categoria, $tipo, $prezzo, $immagine)
-    {
-        $this->id = $id;
-        $this->titolo = $titolo;
-        $this->categoria = $categoria;
-        $this->tipo = $tipo;
-        $this->prezzo = $prezzo;
-        $this->immagine = $immagine;
-    }
-
-    public function stampaProdotto()
-    {
-        echo '<div class="card">';
-        echo '<img src="' . $this->immagine . '" alt="' . $this->titolo . '">';
-        echo '<h4 class="text-danger mt-2">' . $this->titolo . '</h4>';
-        echo '<p>Categoria: ' . $this->categoria->logoAnimale . '</p>';
-        echo '<p>Tipo: ' . $this->tipo . '</p>';
-        echo '<p>Prezzo: ' . $this->prezzo . ' EUR</p>';
-        echo '</div>';
-    }
-}
-?>
